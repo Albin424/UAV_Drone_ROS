@@ -1,0 +1,2 @@
+offb
+-DCATKIN_DEVEL_PREFIX=/home/albin/DRONE/iris_cam/devel -DCMAKE_INSTALL_PREFIX=/home/albin/DRONE/iris_cam/install -G Unix Makefiles
