@@ -4,9 +4,6 @@
 	<include file="$(find px4)/launch/mavros_posix_sitl.launch">
 	
 	</include>
-	
-	<node name="aruco_detection" pkg="offb" type="ArUcodetection.py" output="screen"/>
-
 	<!-- Node to subscribe to image_raw topic and call image_callback() function -->
 	<node name="image_subscriber" pkg="offb" type="image_subscriber.py" output="screen"/>
 

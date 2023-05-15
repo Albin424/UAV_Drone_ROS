@@ -8,9 +8,16 @@ project(offb)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rospy
-)
+	message_generation 
+	gazebo_msgs 
+	roscpp 
+	rospy  
+	std_srvs 
+	geometry_msgs 
+	sensor_msgs 
+	nav_msgs
+	std_msgs
+	gazebo_ros)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -46,12 +53,9 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
-
+add_message_files(FILES
+  Marker.msg #name of custom message file 
+)
 ## Generate services in the 'srv' folder
 # add_service_files(
 #   FILES
@@ -67,10 +71,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  offb
+  std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -101,12 +106,21 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
+
+
+catkin_package(
+  CATKIN_DEPENDS message_runtime std_msgs# runtime `Add_message` runtime
+)
+
+
+
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES offb
-#  CATKIN_DEPENDS roscpp rospy
+  LIBRARIES offb
+  CATKIN_DEPENDS roscpp rospy
 #  DEPENDS system_lib
 )
+
 
 ###########
 ## Build ##
@@ -124,6 +138,7 @@ include_directories(
 #   src/${PROJECT_NAME}/offb.cpp
 # )
 
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -137,6 +152,8 @@ include_directories(
 
 add_executable(${PROJECT_NAME}_node src/offb_node.cpp)
 target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME}_node offb_generate_messages_cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

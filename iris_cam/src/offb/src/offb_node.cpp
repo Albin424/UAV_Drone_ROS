@@ -107,12 +107,13 @@ int main(int argc, char **argv)
             local_pos_pub.publish(pose);
             last_request = ros::Time::now();
             j++;
-        } else if (ros::Time::now() - last_request > ros::Duration(5.0) && j < 6) {
+        } /*else if (ros::Time::now() - last_request > ros::Duration(5.0) && j < 6) {
             pose.pose.position.z -= 1;
             local_pos_pub.publish(pose);
             last_request = ros::Time::now();
             j++;
-        } else if (ros::Time::now() - last_request > ros::Duration(5.0) && j < 7) {
+            ROS_INFO("Reached End");
+        } /*else if (ros::Time::now() - last_request > ros::Duration(5.0) && j < 7) {
             pose.pose.position.z -= 0.5;
             local_pos_pub.publish(pose);
             last_request = ros::Time::now();
@@ -123,9 +124,9 @@ int main(int argc, char **argv)
             local_pos_pub.publish(pose);
             last_request = ros::Time::now();
             j++;
-            ROS_INFO("jumped to while");
-        } 
-        while(!landing_started && current_state.mode == "OFFBOARD") {
+            ROS_INFO("jumped to while"); 
+        } */
+      /*  while(!landing_started && current_state.mode == "OFFBOARD") {
             ROS_INFO("started while");
             if (pose.pose.position.z > 0.5) {
                 pose.pose.position.z -= 0.9;
@@ -150,7 +151,7 @@ int main(int argc, char **argv)
                 ROS_INFO("Landing complete,shutting down");
                 break;
             }
-        }
+        }  */
         local_pos_pub.publish(pose);
 
         ros::spinOnce();
